@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.nav1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+  background-color: rgba(130, 99, 0, 1);
+  height: 5vh;
+  color: aliceblue;
+  font-family: 'Lexand', sans-serif;
+
+}
+.nav2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5vw;
+  height: 10vh;
+  align-items: center;
+  background-color: rgba(250, 237, 223, 1);
+  font-family: 'Lexand', sans-serif;
+
+}
+.nav22 {
+    display: flex;
+    text-decoration: none;
+    gap: 3vw;
+    color: black;
+}
