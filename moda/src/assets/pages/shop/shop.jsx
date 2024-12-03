@@ -8,9 +8,8 @@ import cardImg1 from "./Rectangle 3.png";
 import cardImg2 from "./Rectangle 4.png";
 import cardImg3 from "./Rectangle 5.png";
 import cardImg4 from "./Rectangle 6.png";
-import cardImg5 from "./Rectangle 7.png";
 export default function Shop() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState( false );
   const showDrawer = () => {
     setOpen(true);
   };

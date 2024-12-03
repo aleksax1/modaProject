@@ -2,5 +2,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
     "antd": "^5.22.2"
+  },
+  "devDependencies": {
+    "vite": "^6.0.2"
   }
 }
