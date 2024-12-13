@@ -1,40 +1,69 @@
-import { Card } from "antd";
-import React from "react";
+import { Button, Card } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProductCard from "../../components/cardMen/cardMen.jsx";
 import Footer from "../../components/footer/footer.jsx";
 import Nav from "../../components/nav/nav.jsx";
-import baner from "./Hero-container .png";
+import baner from "./bg-image.png";
+import baner2 from "./Rectangle 8.png";
 import "./homePage.css";
-import CardMan from "../../components/cardMen/cardMen.jsx";
-import baner2 from "./Rectangle 8.png"
-import collectionImg from "./collection-div.png"
-import listImg from "./lists.png"
 const { Meta } = Card;
 export default function HomePage() {
+  const navigate = useNavigate();
+  const [homePageProducts, setHomePageProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchHomePageProducs = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "https://dummyjson.com/products?limit=9"
+      );
+
+      console.log(response.data.products);
+      setHomePageProducts(response.data.products);
+    } catch (error) {
+      console.error("Error while fetching data", error);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchHomePageProducs();
+  }, []);
+
   return (
     <>
       <Nav />
-      <img src={baner} alt="Baner" className="baner" />
+      <div className="baner1">
+        <img src={baner} alt="Baner" className="baner" />
+        <h2>LOOK YOUR BEST</h2>
+        <h1>FOR YOUR SPECIAL DAY</h1>
+      <button  onClick={() => navigate("/shop")}>Learn more</button>
+      </div>
       <div className="naslov">
         <p>FEATURED PRODUCTS</p>
         <div>
-          <button>View all</button>
+          <Button
+            variant="filled"
+            color="transparent"
+            size="large"
+            onClick={() => navigate("/shop")}
+          >
+            View All
+          </Button>
         </div>
       </div>
-      <div className="cardsDiv">
-        <CardMan></CardMan>
-      
-        </div>
-          <div className="baner2">
-              <h1 style={{ color: "" }}>Made-To-Order</h1>
-              <button>Learn more</button>
-              <img src={baner2} alt="baner" style={{ width:"100%"}} />
-          </div>  
-          <div className="shop">
-            <img src={collectionImg} alt="nistaa" />
-          </div>
-          <div className="service">
-            <img src={listImg} alt="nistaa" />
-          </div>
+      <div className="cardsDiv" style={{padding:"1vh 7vw"}}>
+        <ProductCard products={homePageProducts} />
+      </div>
+      <div className="baner2">
+        <h1 style={{ color: "" }}>Made-To-Order</h1>
+        <button>Learn more</button>
+        <img src={baner2} alt="baner" style={{ width: "100%" }} />
+      </div>
       <Footer />
     </>
   );

@@ -4,10 +4,11 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./nav.css";
 import logo from "./logo.png"
 export default function Nav() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="nav1">
@@ -15,7 +16,7 @@ export default function Nav() {
         <p>Take 10% off</p>
       </div>
       <div className="nav2">
-        <div><img src={logo} alt="" /></div>
+        <div><img src={logo} alt=""onClick={() => navigate("/")} /></div>
         <div className="nav22">
           <div>
             <Link to={"/"} style={{color:"black",textDecoration:"none"}}>HOME PAGE</Link>
