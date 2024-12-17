@@ -27,3 +27,13 @@
     gap: 3vw;
     color: black;
 }
+.centered-drawer .ant-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.centered-drawer .ant-col {
+  flex: 1 0 45%; 
+  max-width: 45%;
+}

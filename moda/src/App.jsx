@@ -7,13 +7,12 @@ import Service from './assets/pages/servi/service'
 import Contact from './assets/pages/contact/contact'
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage/> } />
-          <Route path='/shop' element={<Shop/> } />
+          <Route path='/shop' element={<Shop  />} /> 
           <Route path='/services' element={<Service/> } />
           <Route path='/contact' element={<Contact/> } />
         </Routes>
