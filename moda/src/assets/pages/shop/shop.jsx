@@ -1,14 +1,14 @@
-import { Button, Checkbox, Col, Drawer, FloatButton, Row } from "antd";
-import React, { useState } from "react";
+import { FilterOutlined } from "@ant-design/icons";
+import { Checkbox, Col, Drawer, FloatButton, Row, Spin } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../../components/footer/footer";
 import Nav from "../../components/nav/nav";
 import "./shop.css";
-import ShopCard from "../../components/shopCard/shopCard";
-import ProductCard from "../../components/cardMen/cardMen";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect } from "react";
-import { FilterOutlined } from "@ant-design/icons";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext.jsx";
+import ShopCard from "../../components/shopCard/shopCard.jsx";
 
 export default function Shop() {
   const categories = [
@@ -37,17 +37,30 @@ export default function Shop() {
     "womens-shoes",
     "womens-watches",
   ];
-
+  const { favorites, setFavorites } = useContext(AppContext);
   const navigate = useNavigate();
   const [homePageProducts, setHomePageProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("mens-shoes");
-  console.log(category)
+  console.log(category);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [allProducts, setallProducts] = useState([]);
+
   const showDrawer = () => {
     setOpen(true);
   };
 
+console.log("favorites:", favorites);
+console.log("setFavorites:", setFavorites);
+  const changeFavorite = (id) => {
+    setFavorites((prevFavorites) => {
+      if (prevFavorites.includes(id)) {
+        return prevFavorites.filter((product) => product !== id);
+      } else {
+        return [...prevFavorites, id];
+      }
+    });
+  };
   const onClose = () => {
     setOpen(false);
   };
@@ -55,7 +68,9 @@ export default function Shop() {
   const fetchHomePageProducs = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://dummyjson.com/products/category/${category}`);
+      const response = await axios.get(
+        `https://dummyjson.com/products/category/${category}`
+      );
 
       console.log(response.data.products);
       setHomePageProducts(response.data.products);
@@ -86,7 +101,13 @@ export default function Shop() {
               <Row gutter={[16, 16]}>
                 {categories.map((category, index) => (
                   <Col span={8} key={index}>
-                    <Checkbox value={category} onChange={(e)=>setCategory(category)}>{category}</Checkbox>
+                    <Checkbox
+                      value={category}
+                      checked={category === category}
+                      onChange={() => setCategory(category)}
+                    >
+                      {category}
+                    </Checkbox>
                   </Col>
                 ))}
               </Row>
@@ -94,8 +115,21 @@ export default function Shop() {
           </div>
         </form>
       </Drawer>
-      <div className="shopGlavni">
-        <ProductCard products={homePageProducts} />
+      <div className="shopGlavni" style={{padding:"7vh 0"}}>
+        {loading ? (
+          console.log("loading")
+        ): (
+          homePageProducts.map((product) => (
+            <ShopCard
+              key={product.id}
+              title={product.title}
+              description={product.description}
+              image={product.thumbnail}
+              favorite={favorites.includes(`${product.id}`)}
+              changeFavorite={() => changeFavorite(`${product.id}`)}
+            />
+          ))
+        )}
       </div>
       <Footer />
     </>

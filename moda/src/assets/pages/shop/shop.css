@@ -9,7 +9,7 @@
 .shopGlavni{
     display: flex;
     justify-content: center;
-    padding: 20px;
+    margin: 0 1vw;
     gap: 5vw;
     flex-wrap: wrap;
 }

@@ -24,9 +24,7 @@ export default function Nav() {
           <div>
             <Link to={"/shop"} style={{color:"black",textDecoration:"none"}}>SHOP</Link>
           </div>
-          <div>
-            <Link to={"/weedings"} style={{color:"black",textDecoration:"none"}}>WEEDINGS</Link>
-          </div>
+
           <div>
             <Link to={"/services"} style={{color:"black",textDecoration:"none"}}>SERVICES</Link>
           </div>
