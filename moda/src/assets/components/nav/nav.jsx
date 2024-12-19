@@ -3,28 +3,21 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Drawer, Row } from "antd";
+import { Badge } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../context/AppContext.jsx";
-import ShopCard from "../shopCard/shopCard.jsx";
 import logo from "./logo.png";
 import "./nav.css";
 
 export default function Nav() {
-  const { favorites, setFavorites, category, setCategory } =useContext(AppContext);
+  const { favorites, setFavorites, category, setCategory } =
+    useContext(AppContext);
   const [homePageProducts, setHomePageProducts] = useState([]);
   const [allFavoriteProducts, setAllFavoriteProducts] = useState([]);
 
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
   console.log(category);
   const fetchHomePageProducs = async () => {
     try {
@@ -71,15 +64,6 @@ export default function Nav() {
               SHOP
             </Link>
           </div>
-
-          <div>
-            <Link
-              to={"/services"}
-              style={{ color: "black", textDecoration: "none" }}
-            >
-              SERVICES
-            </Link>
-          </div>
           <div>
             <Link
               to={"/contact"}
@@ -99,20 +83,25 @@ export default function Nav() {
               font: "bold",
             }}
           />
-          <ShoppingCartOutlined
-            style={{
-              fontSize: "4.3vh",
-              color: "black",
-              paddingRight: "5px",
-              cursor: "pointer",
-            }}
-            onClick={showDrawer}
-          />
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <Badge count={favorites.length}>
+              <ShoppingCartOutlined
+                style={{
+                  fontSize: "4.3vh",
+                  color: "black",
+                  paddingRight: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/favorites")}
+              />
+            </Badge>
+          </div>
+
           <SearchOutlined
-            style={{ fontSize: "4vh", color: "black", paddingRight: "5px" }}
+            style={{ fontSize: "4vh", color: "black", paddingLeft: "5px" }}
           />
 
-          <Drawer
+          {/*<Drawer
             title="Favorites"
             onClose={onClose}
             open={open}
@@ -144,7 +133,7 @@ export default function Nav() {
                 <h2>Don't have any favorites.</h2>
               </div>
             )}
-          </Drawer>
+          </Drawer>*/}
         </div>
       </div>
     </>

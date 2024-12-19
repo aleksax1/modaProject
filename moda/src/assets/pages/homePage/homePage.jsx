@@ -57,14 +57,7 @@ export default function HomePage() {
       </div>
       <div className="cardsDiv" style={{ padding: "5vh 7vw" }}>
         {homePageProducts.slice(0, 5).map((product) => (
-          <ShopCard
-            key={product.id}
-            title={product.title}
-            description={product.description}
-            stock={product.stock}
-            price={product.price}
-            image={product.thumbnail}
-          />
+          <ShopCard key={product.id} product={product} />
         ))}
       </div>
       <div className="baner2">

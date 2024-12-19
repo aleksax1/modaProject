@@ -8,7 +8,6 @@ import Footer from "../../components/footer/footer";
 import Nav from "../../components/nav/nav";
 import ShopCard from "../../components/shopCard/shopCard.jsx";
 import "./shop.css";
-
 export default function Shop({}) {
   const categories = [
     "beauty",
@@ -36,10 +35,12 @@ export default function Shop({}) {
     "womens-shoes",
     "womens-watches",
   ];
-  const { favorites, setFavorites, category, setCategory } =useContext(AppContext);
+  const { favorites, setFavorites } = useContext(AppContext);
   const navigate = useNavigate();
   const [homePageProducts, setHomePageProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState("womens-watches");
+  
   //drawrs function
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -48,7 +49,6 @@ export default function Shop({}) {
   const onClose = () => {
     setOpen(false);
   };
-
   const changeFavorite = (id) => {
     setFavorites((prevFavorites) => {
       if (prevFavorites.includes(id)) {
@@ -76,7 +76,7 @@ export default function Shop({}) {
   useEffect(() => {
     fetchHomePageProducs();
   }, [category]);
-  console.log(favorites)
+  console.log(favorites);
   return (
     <>
       <Nav />
@@ -90,11 +90,14 @@ export default function Shop({}) {
       <Drawer title="Categorys" onClose={onClose} open={open} placement="right">
         <form action="">
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox.Group style={{ width: "100%" }}onChange={(checkedValues) => {
-          if (checkedValues.length > 0) {
-            setCategory(checkedValues[checkedValues.length - 1]); // Set the last selected category
-          }
-        }}>
+            <Checkbox.Group
+              style={{ width: "100%" }}
+              onChange={(checkedValues) => {
+                if (checkedValues.length > 0) {
+                  setCategory(checkedValues[checkedValues.length - 1]); // Set the last selected category
+                }
+              }}
+            >
               <Row gutter={[16, 16]}>
                 {categories.map((category, index) => (
                   <Col span={8} key={index}>
@@ -113,21 +116,17 @@ export default function Shop({}) {
         </form>
       </Drawer>
       <div className="shopGlavni" style={{ padding: "7vh 0" }}>
-        {loading
-          ? console.log("loading")
-          : homePageProducts.map((product) => (
-              <ShopCard
-                key={product.id}
-                title={product.title}
-                description={product.description}
-                stock={product.stock}
-                price={product.price}
-                image={product.thumbnail}
-                favorite={favorites.includes(`${product.id}`)}
-                changeFavorite={() => changeFavorite(`${product.id}`)}
-              />
-            ))}
-      </div>
+  {loading ? (
+    <p>Loading...</p>
+  ) : homePageProducts.length === 0 ? (
+    <p>No products available for the selected category.</p>
+  ) : (
+    homePageProducts.map((product) => (
+      <ShopCard key={product.id} product={product} />
+    ))
+  )}
+</div>
+        
       <Footer />
     </>
   );

@@ -5,6 +5,7 @@ import {BrowserRouter,Route,Routes} from "react-router-dom"
 import Shop from './assets/pages/shop/shop'
 import Service from './assets/pages/servi/service'
 import Contact from './assets/pages/contact/contact'
+import Favorites from './assets/pages/favorites/favorites'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/shop' element={<Shop  />} /> 
           <Route path='/services' element={<Service/> } />
           <Route path='/contact' element={<Contact/> } />
+          <Route path='/favorites' element={<Favorites/> } />
         </Routes>
       </BrowserRouter>
     </>
