@@ -8,6 +8,7 @@ import Footer from "../../components/footer/footer";
 import Nav from "../../components/nav/nav";
 import ShopCard from "../../components/shopCard/shopCard.jsx";
 import "./shop.css";
+import SearchBar from "../../components/searchBar/searchBar.jsx";
 export default function Shop({}) {
   const categories = [
     "beauty",
@@ -49,15 +50,7 @@ export default function Shop({}) {
   const onClose = () => {
     setOpen(false);
   };
-  const changeFavorite = (id) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(id)) {
-        return prevFavorites.filter((product) => product !== id);
-      } else {
-        return [...prevFavorites, id];
-      }
-    });
-  };
+ 
 
   const fetchHomePageProducs = async () => {
     try {
@@ -76,7 +69,6 @@ export default function Shop({}) {
   useEffect(() => {
     fetchHomePageProducs();
   }, [category]);
-  console.log(favorites);
   return (
     <>
       <Nav />
@@ -115,6 +107,8 @@ export default function Shop({}) {
           </div>
         </form>
       </Drawer>
+      
+
       <div className="shopGlavni" style={{ padding: "7vh 0" }}>
   {loading ? (
     <p>Loading...</p>

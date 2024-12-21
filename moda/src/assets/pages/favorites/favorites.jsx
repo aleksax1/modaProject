@@ -14,11 +14,17 @@ export default function Shop() {
     <>
       <Nav />
       {favorites.length > 0 ? (
-        <div className="shopGlavni">
+        <>
+          <div style={{ display: "flex", justifyContent:"center", alignContent:"center"}}>
+          
+            <h1 style={{ paddingTop:"6vh"}}>Favorites</h1>
+        </div>
+        <div className="shopGlavni" style={{ padding: "5vh 0vh"}}>
           {favorites.map((product) => (
             <ShopCard product={product} key={product.id} />
           ))}
         </div>
+          </>
       ) : (
         <div
           style={{

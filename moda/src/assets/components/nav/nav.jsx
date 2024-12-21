@@ -10,31 +10,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../context/AppContext.jsx";
 import logo from "./logo.png";
 import "./nav.css";
+import SearchBar from "../searchBar/searchBar.jsx";
 
 export default function Nav() {
   const { favorites, setFavorites, category, setCategory } =
     useContext(AppContext);
   const [homePageProducts, setHomePageProducts] = useState([]);
   const [allFavoriteProducts, setAllFavoriteProducts] = useState([]);
+  const[search,setSearch]=useState(false)
 
   const navigate = useNavigate();
-  console.log(category);
-  const fetchHomePageProducs = async () => {
-    try {
-      const response = await axios.get(
-        `https://dummyjson.com/products/category/${category}`
-      );
-      setHomePageProducts(response.data.products);
-    } catch (error) {
-      console.error("Error while fetching data", error);
-    }
-  };
 
-  useEffect(() => {
-    if (category) {
-      fetchHomePageProducs();
-    }
-  }, [favorites]);
+
+
   return (
     <>
       <div className="nav1">
@@ -73,7 +61,7 @@ export default function Nav() {
             </Link>
           </div>
         </div>
-        <div>
+        <div style={{display:'flex',justifyContent:"center" ,alignItems:"center"}}>
           <UserOutlined
             style={{
               fontSize: "4vh",
@@ -96,9 +84,11 @@ export default function Nav() {
               />
             </Badge>
           </div>
-
+          {search ?
+                (    <SearchBar style={{}}></SearchBar>):(console.log("nema"))}
           <SearchOutlined
             style={{ fontSize: "4vh", color: "black", paddingLeft: "5px" }}
+            onClick={() =>setSearch(true)}
           />
 
           {/*<Drawer

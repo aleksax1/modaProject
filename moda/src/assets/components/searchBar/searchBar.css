@@ -1,0 +1,14 @@
+
+.custom-search-button .ant-btn-primary {
+  background-color: rgb(119, 110, 23);git 
+  border-color: rgb(119, 110, 23); ;     
+}
+
+.custom-search-button .ant-btn-primary:hover {
+  background-color:rgb(72, 66, 10);  
+  border-color:rgb(71, 65, 8); 
+}
+
+.custom-search-button .ant-btn-primary > span {
+  color: white; 
+}
